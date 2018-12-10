@@ -5,6 +5,7 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.ServerSocketChannel;
+import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 public class Server {
 
@@ -14,7 +15,7 @@ public class Server {
         try {
             ServerBootstrap bootstrap = new ServerBootstrap();
             bootstrap.group(bossGroup, workerGroup)
-                    .channel(ServerSocketChannel.class)
+                    .channel(NioServerSocketChannel.class)
                     .childHandler(new ServerInitializer());
             ChannelFuture future = bootstrap.bind(8888).sync();
             future.channel().closeFuture().sync();
